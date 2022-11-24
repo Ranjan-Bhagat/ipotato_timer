@@ -177,52 +177,124 @@ class IPotatoThemes {
       outline: Color(0XFF8A9296),
     ),
   );
+
+
+  ///Color getter
+  static Color get primary => light.colorScheme.primary;
+  static Color get onPrimary => light.colorScheme.onPrimary;
+  static Color get primaryContainer => light.colorScheme.primaryContainer;
+  static Color get onPrimaryContainer => light.colorScheme.onPrimaryContainer;
+  static Color get secondary => light.colorScheme.secondary;
+  static Color get onSecondary => light.colorScheme.onSecondary;
+  static Color get secondaryContainer => light.colorScheme.secondaryContainer;
+  static Color get onSecondaryContainer => light.colorScheme.onSecondaryContainer;
+  static Color get tertiary => light.colorScheme.tertiary;
+  static Color get onTertiary => light.colorScheme.onTertiary;
+  static Color get tertiaryContainer => light.colorScheme.tertiaryContainer;
+  static Color get onTertiaryContainer => light.colorScheme.onTertiaryContainer;
+  static Color get error => light.colorScheme.error;
+  static Color get onError => light.colorScheme.onError;
+  static Color get errorContainer => light.colorScheme.errorContainer;
+  static Color get onErrorContainer => light.colorScheme.onErrorContainer;
+  static Color get background => light.colorScheme.background;
+  static Color get onBackground => light.colorScheme.onBackground;
+  static Color get surface => light.colorScheme.surface;
+  static Color get onSurface => light.colorScheme.onSurface;
+  static Color get surfaceVariant => light.colorScheme.surfaceVariant;
+  static Color get onSurfaceVariant => light.colorScheme.onSurfaceVariant;
+  static Color get outline => light.colorScheme.outline;
+
+  //TextStyle Getters
+  static TextStyle? get displayLarge => light.textTheme.displayLarge;
+  static TextStyle? get displayMedium => light.textTheme.displayMedium;
+  static TextStyle? get displaySmall => light.textTheme.displaySmall;
+  static TextStyle? get headlineLarge => light.textTheme.headlineLarge;
+  static TextStyle? get headlineMedium => light.textTheme.headlineMedium;
+  static TextStyle? get headlineSmall => light.textTheme.headlineSmall;
+  static TextStyle? get titleLarge => light.textTheme.titleLarge;
+  static TextStyle? get titleMedium => light.textTheme.titleMedium;
+  static TextStyle? get titleSmall => light.textTheme.titleSmall;
+  static TextStyle? get labelLarge => light.textTheme.labelLarge;
+  static TextStyle? get labelMedium => light.textTheme.labelMedium;
+  static TextStyle? get labelSmall => light.textTheme.labelSmall;
+  static TextStyle? get bodyLarge => light.textTheme.bodyLarge;
+  static TextStyle? get bodyMedium => light.textTheme.bodyMedium;
+  static TextStyle? get bodySmall => light.textTheme.bodySmall;
+
+  ///Dark Color getter
+  static Color get darkPrimary => dark.colorScheme.primary;
+  static Color get darkOnPrimary => dark.colorScheme.onPrimary;
+  static Color get darkPrimaryContainer => dark.colorScheme.primaryContainer;
+  static Color get darkOnPrimaryContainer => dark.colorScheme.onPrimaryContainer;
+  static Color get darkSecondary => dark.colorScheme.secondary;
+  static Color get darkOnSecondary => dark.colorScheme.onSecondary;
+  static Color get darkSecondaryContainer => dark.colorScheme.secondaryContainer;
+  static Color get darkOnSecondaryContainer => dark.colorScheme.onSecondaryContainer;
+  static Color get darkTertiary => dark.colorScheme.tertiary;
+  static Color get darkOnTertiary => dark.colorScheme.onTertiary;
+  static Color get darkTertiaryContainer => dark.colorScheme.tertiaryContainer;
+  static Color get darkOnTertiaryContainer => dark.colorScheme.onTertiaryContainer;
+  static Color get darkError => dark.colorScheme.error;
+  static Color get darkOnError => dark.colorScheme.onError;
+  static Color get darkErrorContainer => dark.colorScheme.errorContainer;
+  static Color get darkOnErrorContainer => dark.colorScheme.onErrorContainer;
+  static Color get darkBackground => dark.colorScheme.background;
+  static Color get darkOnBackground => dark.colorScheme.onBackground;
+  static Color get darkSurface => dark.colorScheme.surface;
+  static Color get darkOnSurface => dark.colorScheme.onSurface;
+  static Color get darkSurfaceVariant => dark.colorScheme.surfaceVariant;
+  static Color get darkOnSurfaceVariant => dark.colorScheme.onSurfaceVariant;
+  static Color get darkOutline => dark.colorScheme.outline;
+
+
 }
 
 extension IPotatoThemesExtension on BuildContext {
 
-  bool get isDark => Theme.of(this).brightness == Brightness.dark;
+  ThemeData get _theme => Theme.of(this);
+
+  bool get isDark => _theme.brightness == Brightness.dark;
 
   ///Color getter
-  Color get primary => Theme.of(this).colorScheme.primary;
-  Color get onPrimary => Theme.of(this).colorScheme.onPrimary;
-  Color get primaryContainer => Theme.of(this).colorScheme.primaryContainer;
-  Color get onPrimaryContainer => Theme.of(this).colorScheme.onPrimaryContainer;
-  Color get secondary => Theme.of(this).colorScheme.secondary;
-  Color get onSecondary => Theme.of(this).colorScheme.onSecondary;
-  Color get secondaryContainer => Theme.of(this).colorScheme.secondaryContainer;
-  Color get onSecondaryContainer => Theme.of(this).colorScheme.onSecondaryContainer;
-  Color get tertiary => Theme.of(this).colorScheme.tertiary;
-  Color get onTertiary => Theme.of(this).colorScheme.onTertiary;
-  Color get tertiaryContainer => Theme.of(this).colorScheme.tertiaryContainer;
-  Color get onTertiaryContainer => Theme.of(this).colorScheme.onTertiaryContainer;
-  Color get error => Theme.of(this).colorScheme.error;
-  Color get onError => Theme.of(this).colorScheme.onError;
-  Color get errorContainer => Theme.of(this).colorScheme.errorContainer;
-  Color get onErrorContainer => Theme.of(this).colorScheme.onErrorContainer;
-  Color get background => Theme.of(this).colorScheme.background;
-  Color get onBackground => Theme.of(this).colorScheme.onBackground;
-  Color get surface => Theme.of(this).colorScheme.surface;
-  Color get onSurface => Theme.of(this).colorScheme.onSurface;
-  Color get surfaceVariant => Theme.of(this).colorScheme.surfaceVariant;
-  Color get onSurfaceVariant => Theme.of(this).colorScheme.onSurfaceVariant;
-  Color get outline => Theme.of(this).colorScheme.outline;
+  Color get primary => _theme.colorScheme.primary;
+  Color get onPrimary => _theme.colorScheme.onPrimary;
+  Color get primaryContainer => _theme.colorScheme.primaryContainer;
+  Color get onPrimaryContainer => _theme.colorScheme.onPrimaryContainer;
+  Color get secondary => _theme.colorScheme.secondary;
+  Color get onSecondary => _theme.colorScheme.onSecondary;
+  Color get secondaryContainer => _theme.colorScheme.secondaryContainer;
+  Color get onSecondaryContainer => _theme.colorScheme.onSecondaryContainer;
+  Color get tertiary => _theme.colorScheme.tertiary;
+  Color get onTertiary => _theme.colorScheme.onTertiary;
+  Color get tertiaryContainer => _theme.colorScheme.tertiaryContainer;
+  Color get onTertiaryContainer => _theme.colorScheme.onTertiaryContainer;
+  Color get error => _theme.colorScheme.error;
+  Color get onError => _theme.colorScheme.onError;
+  Color get errorContainer => _theme.colorScheme.errorContainer;
+  Color get onErrorContainer => _theme.colorScheme.onErrorContainer;
+  Color get background => _theme.colorScheme.background;
+  Color get onBackground => _theme.colorScheme.onBackground;
+  Color get surface => _theme.colorScheme.surface;
+  Color get onSurface => _theme.colorScheme.onSurface;
+  Color get surfaceVariant => _theme.colorScheme.surfaceVariant;
+  Color get onSurfaceVariant => _theme.colorScheme.onSurfaceVariant;
+  Color get outline => _theme.colorScheme.outline;
 
   //TextStyle Getters
-  TextStyle? get displayLarge => Theme.of(this).textTheme.displayLarge;
-  TextStyle? get displayMedium => Theme.of(this).textTheme.displayMedium;
-  TextStyle? get displaySmall => Theme.of(this).textTheme.displaySmall;
-  TextStyle? get headlineLarge => Theme.of(this).textTheme.headlineLarge;
-  TextStyle? get headlineMedium => Theme.of(this).textTheme.headlineMedium;
-  TextStyle? get headlineSmall => Theme.of(this).textTheme.headlineSmall;
-  TextStyle? get titleLarge => Theme.of(this).textTheme.titleLarge;
-  TextStyle? get titleMedium => Theme.of(this).textTheme.titleMedium;
-  TextStyle? get titleSmall => Theme.of(this).textTheme.titleSmall;
-  TextStyle? get labelLarge => Theme.of(this).textTheme.labelLarge;
-  TextStyle? get labelMedium => Theme.of(this).textTheme.labelMedium;
-  TextStyle? get labelSmall => Theme.of(this).textTheme.labelSmall;
-  TextStyle? get bodyLarge => Theme.of(this).textTheme.bodyLarge;
-  TextStyle? get bodyMedium => Theme.of(this).textTheme.bodyMedium;
-  TextStyle? get bodySmall => Theme.of(this).textTheme.bodySmall;
+  TextStyle? get displayLarge => _theme.textTheme.displayLarge;
+  TextStyle? get displayMedium => _theme.textTheme.displayMedium;
+  TextStyle? get displaySmall => _theme.textTheme.displaySmall;
+  TextStyle? get headlineLarge => _theme.textTheme.headlineLarge;
+  TextStyle? get headlineMedium => _theme.textTheme.headlineMedium;
+  TextStyle? get headlineSmall => _theme.textTheme.headlineSmall;
+  TextStyle? get titleLarge => _theme.textTheme.titleLarge;
+  TextStyle? get titleMedium => _theme.textTheme.titleMedium;
+  TextStyle? get titleSmall => _theme.textTheme.titleSmall;
+  TextStyle? get labelLarge => _theme.textTheme.labelLarge;
+  TextStyle? get labelMedium => _theme.textTheme.labelMedium;
+  TextStyle? get labelSmall => _theme.textTheme.labelSmall;
+  TextStyle? get bodyLarge => _theme.textTheme.bodyLarge;
+  TextStyle? get bodyMedium => _theme.textTheme.bodyMedium;
+  TextStyle? get bodySmall => _theme.textTheme.bodySmall;
 
 }
