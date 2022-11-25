@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class IPotatoThemes {
   //This not allow to create instance of this class
   IPotatoThemes._();
 
   static const white = Color(0xFFFFFFFF);
+  static const black = Color(0xFF000000);
   static const lightBlack = Color(0xFF191C1E);
 
   static final light = ThemeData(
@@ -36,7 +36,7 @@ class IPotatoThemes {
       onSurfaceVariant: Color(0xFF40484C),
       outline: Color(0XFF70787D),
     ),
-    fontFamily: GoogleFonts.roboto().fontFamily,
+    fontFamily: "Roboto",
     textTheme: const TextTheme(
       //Display
       displayLarge: TextStyle(

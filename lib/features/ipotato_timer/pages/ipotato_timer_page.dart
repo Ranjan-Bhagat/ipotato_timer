@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ipotato_timer/core/core.dart';
+
+import '/core/core.dart';
+import '../overlays/add_timer_overlay.dart';
 
 class IPotatoTimerPage extends StatelessWidget {
   const IPotatoTimerPage({Key? key}) : super(key: key);
@@ -30,13 +32,12 @@ class IPotatoTimerPage extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 40.0),
                   child: Text(
                     "No timers active.\nPress here to start a new one",
-                    style: context.bodyMedium,
+                    style: context.bodyMedium?.copyWith(color: IPotatoThemes.black),
                   ),
                 ),
                 SvgPicture.asset(
                   height: 106,
                   width: 106,
-                  alignment: Alignment.bottomRight,
                   IconAssets.curvedDownArrow,
                   color: context.onTertiaryContainer.withOpacity(0.6),
                 ),
@@ -56,9 +57,10 @@ class IPotatoTimerPage extends StatelessWidget {
             width: 26,
             color: IPotatoThemes.onPrimaryContainer,
           ),
-          onPressed: () {},
+          onPressed: () => showAddTimerOverlay(context),
         ),
       ),
     );
   }
 }
+

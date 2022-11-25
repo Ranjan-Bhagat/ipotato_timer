@@ -7,8 +7,9 @@ class IPotatoTimerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: "IPotato Timer",
       theme: IPotatoThemes.light,
-      darkTheme: IPotatoThemes.dark,
+      // darkTheme: IPotatoThemes.dark,
       routes: IPotatoRoutes.routes,
     );
   }
