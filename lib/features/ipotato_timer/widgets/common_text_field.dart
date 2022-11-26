@@ -7,14 +7,18 @@ class CommonTextFiled extends StatelessWidget {
   final int? maxLines;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
 
   const CommonTextFiled({
     Key? key,
     required this.label,
     this.hint,
-    this.maxLines,
+    this.maxLines = 1,
     this.validator,
     this.controller,
+    this.keyboardType,
+    this.textInputAction,
   }) : super(key: key);
 
   @override
@@ -23,6 +27,8 @@ class CommonTextFiled extends StatelessWidget {
       controller: controller,
       validator: validator,
       maxLines: maxLines,
+      keyboardType: keyboardType,
+      textInputAction: textInputAction,
       style:  context.bodyLarge?.copyWith(
         color: IPotatoThemes.outline,
         letterSpacing: 0.0,

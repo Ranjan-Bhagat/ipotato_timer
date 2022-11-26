@@ -2,18 +2,19 @@ import 'package:collection/collection.dart';
 import 'package:duration_picker/duration_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:ipotato_timer/core/core.dart';
-import 'package:ipotato_timer/core/extension/duration_extentions.dart';
 
 class DurationPicker extends StatefulWidget {
   final String? label;
   final Duration duration;
   final void Function(Duration) onChange;
+  final String? Function(Duration)? validator;
 
   const DurationPicker({
     Key? key,
     this.label,
     this.duration = Duration.zero,
     required this.onChange,
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -21,6 +22,7 @@ class DurationPicker extends StatefulWidget {
 }
 
 class _DurationPickerState extends State<DurationPicker> {
+
   late Duration selectedDuration;
 
   @override
@@ -38,55 +40,55 @@ class _DurationPickerState extends State<DurationPicker> {
         children: [
           Text(
             widget.label ?? "Duration",
-            style: context.labelMedium?.copyWith(color: context.onSurfaceVariant),
+            style:
+                context.labelMedium?.copyWith(color: context.onSurfaceVariant),
           ),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: selectedDuration.toHHMMSS
-                .split(":")
-                .mapIndexed((i, unit) {
-                  return [
-                    if (i != 0)
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                        child: Text(
-                          ":",
-                          style: context.labelSmall
-                              ?.copyWith(color: context.primary),
-                        ),
-                      ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: selectedDuration.toHHMMSS.split(":").mapIndexed((i, unit) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      if (i != 0)
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                          color: context.secondaryContainer,
                           child: Text(
-                            unit.padLeft(2, '0'),
-                            style: context.displayLarge
-                                ?.copyWith(color: context.secondary),
-                          ),
-                        ),
-                        const SizedBox(height: 2.0),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                          child: Text(
-                            i == 0
-                                ? "HH"
-                                : i == 1
-                                    ? "MM"
-                                    : "SS",
+                            ":",
                             style: context.labelSmall
-                                ?.copyWith(color: context.onSurfaceVariant),
+                                ?.copyWith(color: context.primary),
                           ),
                         ),
-                      ],
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                        color: context.secondaryContainer,
+                        child: Text(
+                          unit.padLeft(2, '0'),
+                          style: context.displayLarge
+                              ?.copyWith(color: context.secondary),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 2.0, left: i == 0 ? 0.0 : 12.0),
+                    child: Text(
+                      i == 0
+                          ? "HH"
+                          : i == 1
+                              ? "MM"
+                              : "SS",
+                      style: context.labelSmall
+                          ?.copyWith(color: context.onSurfaceVariant),
                     ),
-                  ];
-                })
-                .expand((element) => element)
-                .toList(),
+                  ),
+                ],
+              );
+            }).toList(),
           ),
         ],
       ),

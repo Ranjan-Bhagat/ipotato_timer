@@ -9,5 +9,5 @@ class IPotatoRoutes {
   static const home = "/";
 
   ///All the routes will be defined hear
-  static final routes = { home : (context) => const IPotatoTimerPage()};
+  static final routes = { home : (context) => IPotatoTimerPage()};
 }
