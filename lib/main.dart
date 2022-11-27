@@ -12,6 +12,6 @@ void main() async {
   // );
 
   //Setting service locator
-  setUp();
+  setUpLocator();
   runApp(const IPotatoTimerApp());
 }
