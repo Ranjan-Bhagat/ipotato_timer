@@ -1,9 +1,9 @@
 part of 'timer_list_cubit.dart';
 
-@freezed
+@Freezed(makeCollectionsUnmodifiable: true)
 class TimerListState with _$TimerListState {
 
-  const factory TimerListState({
+  factory TimerListState({
     @Default([]) List<TimerCubit> timers,
   }) = _TimerListState;
 

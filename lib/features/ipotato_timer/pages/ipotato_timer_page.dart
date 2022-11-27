@@ -7,11 +7,23 @@ import '../cubits/timer_cubit.dart';
 import '/core/core.dart';
 import '../overlays/add_timer_overlay.dart';
 
-class IPotatoTimerPage extends StatelessWidget {
+class IPotatoTimerPage extends StatefulWidget {
+  const IPotatoTimerPage({Key? key}) : super(key: key);
 
-  IPotatoTimerPage({Key? key}) : super(key: key);
+  @override
+  State<IPotatoTimerPage> createState() => _IPotatoTimerPageState();
+}
 
+class _IPotatoTimerPageState extends State<IPotatoTimerPage> {
   final cubit = locator.get<TimerListCubit>();
+  final player = AudioPlayer();
+
+  @override
+  void initState() {
+    //Setting audio to player
+    player.setAsset(AudioAssets.completion);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +84,7 @@ class IPotatoTimerPage extends StatelessWidget {
         return BlocProvider(
           lazy: true,
           create: (c) => timers[i],
-          child: TimerCard(i),
+          child: TimerCard(key: ValueKey(timers[i].id), player: player),
         );
       },
     );
@@ -105,5 +117,12 @@ class IPotatoTimerPage extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    //Disposing audio player
+    player.dispose();
+    super.dispose();
   }
 }

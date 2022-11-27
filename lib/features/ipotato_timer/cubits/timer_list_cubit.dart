@@ -9,18 +9,18 @@ part 'timer_list_state.dart';
 
 class TimerListCubit extends Cubit<TimerListState> {
 
-  TimerListCubit() : super(const TimerListState());
+  TimerListCubit() : super(TimerListState());
 
   void addTimer(TimerCubit timerCubit){
-    List<TimerCubit> newTimer = List.from(state.timers);
+    List<TimerCubit> newTimer = List.from(state.timers, growable: true);
     newTimer.add(timerCubit);
-    emit(TimerListState(timers: newTimer));
+    emit(TimerListState(timers: newTimer.toList(growable: false)));
   }
 
-  void removeTimer(int index){
-    List<TimerCubit> newTimer = List.from(state.timers);
-    newTimer.removeAt(index);
-    emit(TimerListState(timers: newTimer));
+  void removeTimer(String id){
+    List<TimerCubit> newTimer = List.from(state.timers, growable: true);
+    newTimer.removeWhere((t) => t.id == id);
+    emit(TimerListState(timers: newTimer.toList(growable: false)));
   }
 
 }

@@ -7,11 +7,19 @@ import 'package:ipotato_timer/features/ipotato_timer/widgets/common_button.dart'
 import '../cubits/timer_list_cubit.dart';
 
 class TimerCard extends StatelessWidget {
-  final int index;
+  final AudioPlayer player;
+  final timerListCubit = locator.get<TimerListCubit>();
 
-  const TimerCard(this.index, {Key? key}) : super(key: key);
+  TimerCard({required Key key, required this.player}) : super(key: key);
 
-  void removeTimer() => locator.get<TimerListCubit>().removeTimer(index);
+  void removeTimer(TimerState state) {
+    timerListCubit.removeTimer(state.id);
+    if (player.playing && !timerListCubit.state.timers.any((timer) => timer.state.isCompleted)) {
+      player
+        ..stop()
+        ..seek(Duration.zero);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +28,15 @@ class TimerCard extends StatelessWidget {
           previous.duration != current.duration ||
           previous.status != current.status,
       builder: (ctx, state) {
+        if (!player.playing && state.isCompleted) {
+          player.play().then((value) => player
+            ..stop()
+            ..seek(Duration.zero));
+        }
+
         return Dismissible(
-          key: ValueKey(state.hashCode),
-          onDismissed: (_) => removeTimer(),
+          key: ValueKey(context.read<TimerCubit>().hashCode),
+          onDismissed: (_) => removeTimer(state),
           child: Card(
             elevation: 8.0,
             color: context.background,
@@ -45,8 +59,8 @@ class TimerCard extends StatelessWidget {
                         const SizedBox(height: 16),
                         Text(
                           state.title,
-                          style:
-                              context.titleLarge?.copyWith(color: context.secondary),
+                          style: context.titleLarge
+                              ?.copyWith(color: context.secondary),
                         ),
                         if (state.description.isNotEmpty)
                           Text(
@@ -57,7 +71,6 @@ class TimerCard extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                             ),
                           ),
-
                       ],
                     ),
                   ),
@@ -65,7 +78,7 @@ class TimerCard extends StatelessWidget {
                     CommonButton(
                       height: 40,
                       label: "MARK COMPLETE",
-                      onPressed: removeTimer,
+                      onPressed: () => removeTimer(state),
                       borderRadius: BorderRadius.circular(14),
                     )
                 ],
@@ -121,7 +134,7 @@ class TimerCard extends StatelessWidget {
         const SizedBox(width: 8.0),
         buildSvgButton(
           svgIconPath: IconAssets.stop,
-          onTap: removeTimer,
+          onTap: () => removeTimer(state),
         ),
       ],
     );

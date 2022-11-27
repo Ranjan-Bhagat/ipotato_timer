@@ -26,6 +26,7 @@ class AddTimerOverlay extends StatefulWidget {
 }
 
 class _AddTimerOverlayState extends State<AddTimerOverlay> {
+
   final formKey = GlobalKey<FormState>();
   final title = TextEditingController();
   final desc = TextEditingController();
@@ -115,6 +116,7 @@ class _AddTimerOverlayState extends State<AddTimerOverlay> {
     }
 
     final timer = TimerCubit(
+      id: UniqueKey().toString(),
       title: title.text,
       desc: desc.text,
       duration: duration,

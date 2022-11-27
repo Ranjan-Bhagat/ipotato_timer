@@ -3,13 +3,12 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:ipotato_timer/core/core.dart';
-import 'package:ipotato_timer/features/ipotato_timer/cubits/timer_list_cubit.dart';
 
 part 'timer_cubit.freezed.dart';
 part 'timer_state.dart';
 
 class TimerCubit extends Cubit<TimerState> {
+  final String id;
   late Stream<Duration> timerStream;
   late StreamSubscription<Duration> timerController;
 
@@ -24,11 +23,13 @@ class TimerCubit extends Cubit<TimerState> {
     required Duration duration,
     required String title,
     required String desc,
+    required this.id,
   }) : super(TimerState(
           duration: duration,
           status: TimerStatus.initialized,
           title: title,
           description: desc,
+          id: id,
         )) {
     _initialized();
   }
@@ -41,7 +42,7 @@ class TimerCubit extends Cubit<TimerState> {
       emit(
         state.copyWith(
           duration: remainingDuration,
-          status: remainingDuration.inSeconds  > 0
+          status: remainingDuration.inSeconds > 0
               ? TimerStatus.running
               : TimerStatus.completed,
         ),
@@ -64,4 +65,5 @@ class TimerCubit extends Cubit<TimerState> {
     timerController.cancel();
     return super.close();
   }
+
 }

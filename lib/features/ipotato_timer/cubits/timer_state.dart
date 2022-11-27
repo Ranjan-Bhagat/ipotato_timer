@@ -18,6 +18,7 @@ class TimerState with _$TimerState {
     @Default(TimerStatus.uninitialized) TimerStatus status,
     @Default("") String title,
     @Default("") String description,
+    required String id,
   }) = _TimerState;
 
   bool get isPaused => status == TimerStatus.paused;

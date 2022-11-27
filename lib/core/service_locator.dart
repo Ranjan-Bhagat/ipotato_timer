@@ -5,5 +5,5 @@ import 'package:ipotato_timer/features/ipotato_timer/cubits/timer_list_cubit.dar
 final locator = GetIt.I;
 
 void setUp(){
-  locator.registerLazySingleton<TimerListCubit>(() => TimerListCubit());
+  locator.registerLazySingleton<TimerListCubit>(() => TimerListCubit(), dispose: (cubit) => cubit.close());
 }
