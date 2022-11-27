@@ -1,10 +1,11 @@
-# ipotato_timer
+# IPotato Timer
 
-A new Flutter project.
+This is an assignment for HightLevel, currently olny tested for Android and Web
 
 ## Getting Started
 
 This project is a starting point for a Flutter application.
+Please run the build_script.sh before running the projects.
 
 A few resources to get you started if this is your first Flutter project:
 
