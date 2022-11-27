@@ -67,7 +67,7 @@ class _DurationPickerState extends State<DurationPicker> {
                         padding: const EdgeInsets.symmetric(horizontal: 4.0),
                         color: context.secondaryContainer,
                         child: Text(
-                          unit.padLeft(2, '0'),
+                          unit,
                           style: context.displayLarge
                               ?.copyWith(color: context.secondary),
                         ),
