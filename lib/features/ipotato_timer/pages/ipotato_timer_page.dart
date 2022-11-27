@@ -15,6 +15,7 @@ class IPotatoTimerPage extends StatefulWidget {
 }
 
 class _IPotatoTimerPageState extends State<IPotatoTimerPage> {
+
   final cubit = locator.get<TimerListCubit>();
   final player = AudioPlayer();
 
@@ -80,13 +81,11 @@ class _IPotatoTimerPageState extends State<IPotatoTimerPage> {
       itemCount: timers.length,
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 32),
       separatorBuilder: (_, i) => const SizedBox(height: 20),
-      itemBuilder: (ctx, i) {
-        return BlocProvider(
-          lazy: true,
-          create: (c) => timers[i],
-          child: TimerCard(key: ValueKey(timers[i].id), player: player),
-        );
-      },
+      itemBuilder: (ctx, i) => TimerCard(
+        key: ValueKey(timers[i].id),
+        timerCubit: timers[i],
+        player: player,
+      ),
     );
   }
 

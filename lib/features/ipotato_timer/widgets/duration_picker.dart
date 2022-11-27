@@ -7,14 +7,12 @@ class DurationPicker extends StatefulWidget {
   final String? label;
   final Duration duration;
   final void Function(Duration) onChange;
-  final String? Function(Duration)? validator;
 
   const DurationPicker({
     Key? key,
     this.label,
     this.duration = Duration.zero,
     required this.onChange,
-    this.validator,
   }) : super(key: key);
 
   @override
@@ -99,6 +97,7 @@ class _DurationPickerState extends State<DurationPicker> {
     final picked = await showDurationPicker(
         context: context,
         initialTime: selectedDuration,
+        baseUnit: BaseUnit.minute,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(20)),
           color: context.background,

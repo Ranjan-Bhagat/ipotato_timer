@@ -9,8 +9,8 @@ part 'timer_state.dart';
 
 class TimerCubit extends Cubit<TimerState> {
   final String id;
-  late Stream<Duration> timerStream;
-  late StreamSubscription<Duration> timerController;
+  late final Stream<Duration> timerStream;
+  late final StreamSubscription<Duration> timerController;
 
   Stream<Duration> _timer(Duration duration) {
     int seconds = duration.inSeconds;
@@ -29,7 +29,6 @@ class TimerCubit extends Cubit<TimerState> {
           status: TimerStatus.initialized,
           title: title,
           description: desc,
-          id: id,
         )) {
     _initialized();
   }
@@ -66,4 +65,16 @@ class TimerCubit extends Cubit<TimerState> {
     return super.close();
   }
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is TimerCubit &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          timerStream == other.timerStream &&
+          timerController == other.timerController;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^ timerStream.hashCode ^ timerController.hashCode;
 }

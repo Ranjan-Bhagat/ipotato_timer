@@ -110,7 +110,7 @@ class _AddTimerOverlayState extends State<AddTimerOverlay> {
 
     //Validating
     if (formKey.currentState?.validate() == false) return;
-    if (duration.inMinutes <= 0) {
+    if (duration.inSeconds <= 0) {
       setState(() => showDurationError = true);
       return;
     }

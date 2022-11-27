@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ipotato_timer/core/core.dart';
@@ -7,35 +9,45 @@ import 'package:ipotato_timer/features/ipotato_timer/widgets/common_button.dart'
 import '../cubits/timer_list_cubit.dart';
 
 class TimerCard extends StatelessWidget {
+
+  final TimerCubit timerCubit;
   final AudioPlayer player;
   final timerListCubit = locator.get<TimerListCubit>();
 
-  TimerCard({required Key key, required this.player}) : super(key: key);
+  TimerCard({Key? key, required this.timerCubit, required this.player}) : super(key: key);
 
-  void removeTimer(TimerState state) {
-    timerListCubit.removeTimer(state.id);
-    if (player.playing && !timerListCubit.state.timers.any((timer) => timer.state.isCompleted)) {
-      player
-        ..stop()
-        ..seek(Duration.zero);
+  Future<void> payAudio(TimerState state) async {
+    if (state.isCompleted) {
+      await player.seek(Duration.zero);
+      await player.play();
     }
+  }
+
+  Future<void> stopAudio(TimerState state) async {
+    if (player.playing && !timerListCubit.state.timers.any((timer) => timer.state.isCompleted)) {
+      await player.stop();
+    }
+  }
+
+  Future<void> removeTimer(TimerState state) async {
+    timerListCubit.removeTimer(timerCubit.id);
+    await stopAudio(state);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TimerCubit, TimerState>(
+    return BlocConsumer<TimerCubit, TimerState>(
+      bloc: timerCubit,
+      listenWhen: (previous, current) =>
+      previous.duration != current.duration ||
+          previous.status != current.status,
       buildWhen: (previous, current) =>
           previous.duration != current.duration ||
           previous.status != current.status,
+      listener: (ctx, state) => payAudio(state),
       builder: (ctx, state) {
-        if (!player.playing && state.isCompleted) {
-          player.play().then((value) => player
-            ..stop()
-            ..seek(Duration.zero));
-        }
-
         return Dismissible(
-          key: ValueKey(context.read<TimerCubit>().hashCode),
+          key: ValueKey(timerCubit.hashCode),
           onDismissed: (_) => removeTimer(state),
           child: Card(
             elevation: 8.0,
@@ -124,12 +136,12 @@ class TimerCard extends StatelessWidget {
         if (state.isPaused)
           buildSvgButton(
             svgIconPath: IconAssets.play,
-            onTap: context.read<TimerCubit>().resumeTimer,
+            onTap: timerCubit.resumeTimer,
           )
         else
           buildSvgButton(
             svgIconPath: IconAssets.pause,
-            onTap: context.read<TimerCubit>().pauseTimer,
+            onTap: timerCubit.pauseTimer,
           ),
         const SizedBox(width: 8.0),
         buildSvgButton(
