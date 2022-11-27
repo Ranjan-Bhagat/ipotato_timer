@@ -77,10 +77,40 @@ class _IPotatoTimerPageState extends State<IPotatoTimerPage> {
   }
 
   Widget timerList(List<TimerCubit> timers) {
+    return LayoutBuilder(
+      builder: (ctx, constraints){
+        if(constraints.maxWidth < 600) {
+          return smallScreenTimerList(timers);
+        } else {
+          return largeScreenTimerGrid(timers);
+        }
+      },
+    );
+  }
+
+  Widget smallScreenTimerList(List<TimerCubit> timers){
     return ListView.separated(
       itemCount: timers.length,
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 32),
       separatorBuilder: (_, i) => const SizedBox(height: 20),
+      itemBuilder: (ctx, i) => TimerCard(
+        key: ValueKey(timers[i].id),
+        timerCubit: timers[i],
+        player: player,
+      ),
+    );
+  }
+
+  Widget largeScreenTimerGrid(List<TimerCubit> timers){
+    return GridView.builder(
+      itemCount: timers.length,
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+          childAspectRatio: 1.67,
+          maxCrossAxisExtent: 390,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
+        ),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 32),
       itemBuilder: (ctx, i) => TimerCard(
         key: ValueKey(timers[i].id),
         timerCubit: timers[i],
