@@ -1,6 +1,6 @@
 # IPotato Timer
 
-This is an assignment for HightLevel, currently olny tested for Android and Web
+Timer app
 
 ## Getting Started
 
